@@ -1,8 +1,15 @@
 import requests
 
+def isServer():
+    f = open('../is_server.txt', 'r')
+    return (f.readline(1) == "1")
+
 # reads the api key from the txt file
 def getKey():
-    f = open('../apikey.txt', 'r')
+    if (isServer()):
+        f = open('/var/www/apikey.txt', 'r')
+    else:
+        f = open('../apikey.txt', 'r')
     return f.readline(24)
 
 def getQuoteWithUserInput():
