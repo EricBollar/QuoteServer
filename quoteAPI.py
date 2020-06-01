@@ -1,5 +1,10 @@
 import requests
 
+# reads the api key from the txt file
+def getKey():
+    f = open('../apikey.txt', 'r')
+    return f.readline(24)
+
 def getQuoteWithUserInput():
     txt = input("Type something to test this out: ")
     getQuote(txt)
@@ -7,9 +12,7 @@ def getQuoteWithUserInput():
 def getQuote(txt):
     url = 'https://quotes.rest/quote/search?query=' + txt
 
-    # reads the api key from the txt file
-    f = open('/var/www/html/QuoteServer/apikey.txt', 'r')
-    api_token = f.readline(24)
+    api_token = getKey()
 
     headers = {'content-type': 'application/json',
         'X-TheySaidSo-Api-Secret': format(api_token)}

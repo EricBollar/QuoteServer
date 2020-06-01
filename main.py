@@ -1,9 +1,12 @@
-import requests
+import requests, quoteAPI
 
 def main():
     txt = input("Type something to test this out: ")
     url = 'https://quotes.rest/quote/search?query=' + txt
-    api_token = "6uvWDTpksQPjIeRxmCBQWAeF"
+    
+    api_token = quoteAPI.getKey()
+    print("token: " + api_token)
+
     headers = {'content-type': 'application/json',
         'X-TheySaidSo-Api-Secret': format(api_token)}
 

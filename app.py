@@ -19,4 +19,8 @@ def handle_data():
     return render_template('index.html', title = quoteAPI.getQuote(searchTerm))
 
 if __name__ == '__main__':
-    app.run()
+    f = open('../is_server.txt', 'r')
+    if (f.readline(1) == "1"):
+        app.run(host='0.0.0.0')
+    else:
+        app.run(host='127.0.0.1')
