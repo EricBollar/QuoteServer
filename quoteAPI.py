@@ -1,15 +1,19 @@
 import requests
+from os import path
 
 def isServer():
-    f = open('../is_server.txt', 'r')
+    basepath = path.dirname(__file__)
+    filepath = format(path.abspath(basepath))+"/../"+"is_server.txt"
+    print("PATH" + filepath)
+    f = open(filepath, "r")
     return (f.readline(1) == "1")
 
 # reads the api key from the txt file
 def getKey():
-    if (isServer()):
-        f = open('/var/www/apikey.txt', 'r')
-    else:
-        f = open('../apikey.txt', 'r')
+    basepath = path.dirname(__file__)
+    filepath = format(path.abspath(basepath))+"/../"+"apikey.txt"
+    print(filepath)
+    f = open(filepath, "r")
     return f.readline(24)
 
 def getQuoteWithUserInput():
