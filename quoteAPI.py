@@ -8,8 +8,8 @@ def getQuote(txt):
     url = 'https://quotes.rest/quote/search?query=' + txt
 
     # reads the api key from the txt file
-    f = open('apikey.txt', 'r')
-    api_token = f.readline()
+    f = open('/var/www/html/QuoteServer/apikey.txt', 'r')
+    api_token = f.readline(24)
 
     headers = {'content-type': 'application/json',
         'X-TheySaidSo-Api-Secret': format(api_token)}
