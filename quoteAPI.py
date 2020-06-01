@@ -4,7 +4,6 @@ from os import path
 def isServer():
     basepath = path.dirname(__file__)
     filepath = format(path.abspath(basepath))+"/../"+"is_server.txt"
-    print("PATH" + filepath)
     f = open(filepath, "r")
     return (f.readline(1) == "1")
 
@@ -12,7 +11,6 @@ def isServer():
 def getKey():
     basepath = path.dirname(__file__)
     filepath = format(path.abspath(basepath))+"/../"+"apikey.txt"
-    print(filepath)
     f = open(filepath, "r")
     return f.readline(24)
 
