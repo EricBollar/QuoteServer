@@ -5,31 +5,32 @@
 <script>
     document.addEventListener('keydown', (e) => {
         if (e.code === "Enter") {
-            buttonClick()
+            buttonTrigger()
         }
     });
 
-    function buttonClick() {
+    function buttonTrigger() {
         let button = document.getElementById('searchButton')
         if (button.disabled === false) {
             document.getElementById("spinnySearchButton").setAttribute('style', '');
             document.getElementById("searchButtonText").innerHTML = "Finding...";
             button.setAttribute('disabled', true);
+            getInfo();
         }
     }
-    $(function () {
-        $('button').click(function () {
-            $.ajax({
-                url: '/test',
-                data: $('input').val(),
-                type: 'POST',
-                success: responseFromSearch,
-                error: function (error) {
-                    console.log(error);
-                }
-            });
+
+    function getInfo() {
+        console.log("clicked");
+        $.ajax({
+            url: '/test',
+            data: $('input').val(),
+            type: 'POST',
+            success: responseFromSearch,
+            error: function (error) {
+                console.log(error);
+            }
         });
-    });
+    }
 
     function responseFromSearch(response) {
         console.log(response)
@@ -74,7 +75,7 @@
         <input type="text" class="form-control" placeholder="Enter a keyword..." aria-label="keyword"
             aria-describedby="basic-addon2" id="searchBarText" name="searchBarText">
         <div class="input-group-append">
-            <button class="btn btn-primary" type="button" id='searchButton' onclick="buttonClick()">
+            <button class="btn btn-primary" type="button" id='searchButton' onclick="buttonTrigger()">
                 <span id="searchButtonText">Find Quote!</span>
                 <span class="spinner-border spinner-border-sm" role="status" id="spinnySearchButton"
                     style="display: none;"></span>
@@ -84,7 +85,9 @@
 
     <section>
         <h1 id="quoteText">{{ quote }}</h1>
-        <em><h3 id="authorText">{{ author }}</h3></em>
+        <em>
+            <h3 id="authorText">{{ author }}</h3>
+        </em>
     </section>
 
 </body>
