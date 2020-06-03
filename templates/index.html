@@ -43,13 +43,15 @@
     }
 </script>
 <style>
+    .flex-container {
+        display: flex;
+        flex-direction: column;
+    }
+
     section {
         background: rgb(0, 5, 50);
         color: rgb(200, 200, 200);
         padding: 1%;
-        position: absolute;
-        bottom: 0;
-        top: 38%;
         width: 100%;
     }
 
@@ -64,31 +66,35 @@
 
 <body>
 
-    <div class="jumbotron jumbotron-fluid">
-        <div class="container">
-            <h1 class="display-4">Quote Finder</h1>
-            <p class="lead">Some description that I'm gonna add later. - Eric</p>
+    <div class="flex-container">
+        <div class="jumbotron jumbotron-fluid">
+            <div class="container">
+                <h1 class="display-4">Quote Finder</h1>
+                <p class="lead">Some description that I'm gonna add later. - Eric</p>
+            </div>
         </div>
-    </div>
 
-    <div class="input-group mb-3" style='padding: 1%;'>
-        <input type="text" class="form-control" placeholder="Enter a keyword..." aria-label="keyword"
-            aria-describedby="basic-addon2" id="searchBarText" name="searchBarText">
-        <div class="input-group-append">
-            <button class="btn btn-primary" type="button" id='searchButton' onclick="buttonTrigger()">
-                <span id="searchButtonText">Find Quote!</span>
-                <span class="spinner-border spinner-border-sm" role="status" id="spinnySearchButton"
-                    style="display: none;"></span>
-            </button>
+        <div class="input-group mb-3" style='padding: 1%; display:flex; justify-content: center;'>
+            <div style="width:400px;">
+                <input type="text" class="form-control" placeholder="Enter a keyword..." aria-label="keyword"
+                    aria-describedby="basic-addon2" id="searchBarText" name="searchBarText">
+            </div>
+            <div class="input-group-append">
+                <button class="btn btn-primary" type="button" id='searchButton' onclick="buttonTrigger()">
+                    <span id="searchButtonText">Find Quote!</span>
+                    <span class="spinner-border spinner-border-sm" role="status" id="spinnySearchButton"
+                        style="display: none;"></span>
+                </button>
+            </div>
         </div>
-    </div>
 
-    <section>
-        <h1 id="quoteText">{{ quote }}</h1>
-        <em>
-            <h3 id="authorText">{{ author }}</h3>
-        </em>
-    </section>
+        <section>
+            <h1 id="quoteText">{{ quote }}</h1>
+            <em>
+                <h3 id="authorText">{{ author }}</h3>
+            </em>
+        </section>
+    </div>
 
 </body>
 
