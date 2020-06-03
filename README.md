@@ -16,3 +16,7 @@
     8  sudo apt-get install libapache2-mod-wsgi
     9  sudo apt-get install python-pip
    10  sudo pip install flask
+  git clone https://github.com/EricBollar/QuoteServer.git
+   13  ls
+   14  vim apikey.txt
+   15  vim is_server.txt
