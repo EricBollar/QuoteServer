@@ -18,18 +18,17 @@ def getQuoteWithUserInput():
     txt = input("Type something to test this out: ")
     getQuote(txt)
     
-def getQuote(txt):
+def getQuoteWithKeyword(txt):
     url = 'https://quotes.rest/quote/search?query=' + txt
-
     api_token = getKey()
-
-    headers = {'content-type': 'application/json',
-        'X-TheySaidSo-Api-Secret': format(api_token)}
+    headers = {'content-type': 'application/json', 'X-TheySaidSo-Api-Secret': format(api_token)}
 
     author = None
+    quote = None
     while (author == None):
         response = requests.get(url, headers=headers)
-        #print(response)
-        quote=response.json()['contents']['quotes'][0]['quote']
-        author=response.json()['contents']['quotes'][0]['author']
-    return '"' + quote + '" ' + author
+        author = response.json()['contents']['quotes'][0]['author']
+        quote = response.json()['contents']['quotes'][0]['quote']
+    tupl = quote, author
+    return tupl
+
