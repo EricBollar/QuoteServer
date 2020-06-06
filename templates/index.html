@@ -3,29 +3,35 @@
 <link rel="stylesheet" media="screen" href="{{ url_for('static', filename='bootstrap.min.css') }}">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script>
-    document.addEventListener('keydown', (e) => {
-        if (e.code === "Enter") {
-            buttonTrigger()
-        }
-    });
+    $(window).on(
+            function () {
+                document.addEventListener('keydown', (e) => {
+                    if (e.code === "Enter") {
+                        buttonTrigger();
+                    }
+                });
+            });
+
+    function hideModal() {
+        document.getElementById('myModal').setAttribute('style', 'display: hidden;');
+    }
 
     function buttonTrigger() {
-        let button = document.getElementById('searchButton')
+        let button = document.getElementById('searchButton');
         if (button.disabled === false) {
             if ($('input').val() === "") {
                 document.getElementById('exampleModalLabel').innerHTML = "Please enter a keyword to search for a quote.";
-                $('#exampleModal').modal('show');
+                document.getElementById('myModal').setAttribute('style', 'display: block;');
             } else {
-            document.getElementById("spinnySearchButton").setAttribute('style', '');
-            document.getElementById("searchButtonText").innerHTML = "Finding...";
-            button.setAttribute('disabled', true);
-            getInfo();
+                document.getElementById("spinnySearchButton").setAttribute('style', '');
+                document.getElementById("searchButtonText").innerHTML = "Finding...";
+                button.setAttribute('disabled', true);
+                getInfo();
             }
         }
     }
 
     function getInfo() {
-        console.log("clicked");
         $.ajax({
             url: '/test',
             data: $('input').val(),
@@ -100,26 +106,24 @@
             </em>
         </section>
     </div>
-  
+    
   <!-- Modal -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">We couldn't find any quotes with that term! Please try a different search.</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+    <div id="myModal" class="modal fade show" tabindex="-1" role="dialog" style="display: hidden;" aria-labelledby="myModalLabel" aria-modal="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 id="myModalLabel">Error</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="hideModal()">×</button>
+                </div>
+                <div class="modal-body" id = "exampleModalLabel">
+                    <p>error</p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" data-dismiss="modal" aria-hidden="true" onclick="hideModal()">Close</button>
+                </div>
+            </div>
         </div>
-        <div class="modal-body">
-          ...
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-    </div>
-  </div>
+=</div>
 
 </body>
 
