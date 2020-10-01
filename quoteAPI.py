@@ -3,20 +3,24 @@ from os import path
 
 def isServer():
     basepath = path.dirname(__file__)
-    filepath = format(path.abspath(basepath))+"/../"+"is_server.txt"
+    filepath = format(path.abspath(basepath))+"/"+"is_server.txt"
     f = open(filepath, "r")
     return (f.readline(1) == "1")
 
 # reads the api key from the txt file
 def getKey():
     basepath = path.dirname(__file__)
-    filepath = format(path.abspath(basepath))+"/../"+"apikey.txt"
+    filepath = format(path.abspath(basepath))+"/"+"apikey.txt"
     f = open(filepath, "r")
     return f.readline(24)
 
 def getQuoteWithUserInput():
     txt = input("Type something to test this out: ")
-    getQuote(txt)
+    if (txt.indexOf(" ") > -1):
+        getQuote(txt)
+    else:
+        quote = "Please Enter Only One Keyword"
+        author = "Try Another Input"
     
 def getQuoteWithKeyword(txt):
     url = 'https://quotes.rest/quote/search?query=' + txt

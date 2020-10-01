@@ -3,30 +3,36 @@
 <link rel="stylesheet" media="screen" href="{{ url_for('static', filename='bootstrap.min.css') }}">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script>
-    $(window).on(
-            function () {
-                document.addEventListener('keydown', (e) => {
-                    if (e.code === "Enter") {
-                        buttonTrigger();
-                    }
-                });
-            });
+    let searching = false;
+
+    document.addEventListener("keydown", (e) => {
+        console.log("here");
+        if (e.code === "Enter") {
+            document.getElementById('searchButton').disabled = false;
+            buttonTrigger();
+            console.log("pressed");
+        }
+    });
 
     function hideModal() {
         document.getElementById('myModal').setAttribute('style', 'display: hidden;');
     }
 
     function buttonTrigger() {
-        let button = document.getElementById('searchButton');
-        if (button.disabled === false) {
-            if ($('input').val() === "") {
-                document.getElementById('exampleModalLabel').innerHTML = "Please enter a keyword to search for a quote.";
-                document.getElementById('myModal').setAttribute('style', 'display: block;');
-            } else {
-                document.getElementById("spinnySearchButton").setAttribute('style', '');
-                document.getElementById("searchButtonText").innerHTML = "Finding...";
-                button.setAttribute('disabled', true);
-                getInfo();
+        if (!searching) {
+            let button = document.getElementById('searchButton');
+            if (button.disabled === false) {
+                searching = true;
+                if ($('input').val() === "") {
+                    document.getElementById('exampleModalLabel').innerHTML = "Please enter a keyword to search for a quote.";
+                    document.getElementById('myModal').setAttribute('style', 'display: block;');
+                } else {
+                    document.getElementById("spinnySearchButton").setAttribute('style', '');
+                    document.getElementById("searchButtonText").innerHTML = "Finding...";
+                    button.setAttribute('disabled', true);
+                    getInfo();
+                    searching = false;
+                }
             }
         }
     }
@@ -39,12 +45,17 @@
             success: responseFromSearch,
             error: function (error) {
                 console.log(error);
+                document.getElementById("quoteText").innerText = 'No Quote was Found. Try searching with a different keyword.';
+                document.getElementById("authorText").innerText = 'No Quote = No Author';
+                let button = document.getElementById('searchButton')
+                document.getElementById("spinnySearchButton").setAttribute('style', 'display: none;');
+                document.getElementById("searchButtonText").innerHTML = "Find Quote!";
+                button.removeAttribute('disabled');
             }
         });
     }
 
     function responseFromSearch(response) {
-        console.log(response)
         document.getElementById("quoteText").innerText = '"' + response[0] + '"';
         document.getElementById("authorText").innerText = response[1];
         let button = document.getElementById('searchButton')
@@ -80,8 +91,9 @@
     <div class="flex-container">
         <div class="jumbotron jumbotron-fluid">
             <div class="container">
-                <h1 class="display-4">Quote Finder</h1>
-                <p class="lead">Some description that I'm gonna add later. - Eric</p>
+                <h1 class="display-4">Quote Finder</h1><h3>by Eric Bollar</h3>
+                <p class="lead">A website that uses a Quotes API to generate a quote with an author given a keyword input.<br>
+                    My website and more information: <a href="http://www.ericbollar.com/" target="_blank">http://www.ericbollar.com/</a></p>
             </div>
         </div>
 
@@ -100,9 +112,9 @@
         </div>
 
         <section>
-            <h1 id="quoteText">{{ quote }}</h1>
+            <h1 style="position: relative; text-align: center;" id="quoteText">{{ quote }}</h1>
             <em>
-                <h3 id="authorText">{{ author }}</h3>
+                <h3 style="position: relative; text-align: center;" id="authorText">{{ author }}</h3>
             </em>
         </section>
     </div>
