@@ -6,11 +6,8 @@
     let searching = false;
 
     document.addEventListener("keydown", (e) => {
-        console.log("here");
         if (e.code === "Enter") {
-            document.getElementById('searchButton').disabled = false;
             buttonTrigger();
-            console.log("pressed");
         }
     });
 
@@ -26,6 +23,7 @@
                 if ($('input').val() === "") {
                     document.getElementById('exampleModalLabel').innerHTML = "Please enter a keyword to search for a quote.";
                     document.getElementById('myModal').setAttribute('style', 'display: block;');
+                    searching = false;
                 } else {
                     document.getElementById("spinnySearchButton").setAttribute('style', '');
                     document.getElementById("searchButtonText").innerHTML = "Finding...";
